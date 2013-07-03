@@ -1,0 +1,59 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android" android:installLocation="preferExternal" android:theme="@android:style/Theme.NoTitleBar" package="com.shephertz.app42.android.pushservice" android:versionName="1.0" android:versionCode="1">
+  <supports-screens android:smallScreens="true" android:normalScreens="true" android:largeScreens="true" android:xlargeScreens="true" android:anyDensity="true" />
+  
+  <permission
+android:name="com.shephertz.app42.android.pushservice.permission.C2D_MESSAGE"
+android:protectionLevel="signature" />
+<uses-permission android:name="com.shephertz.app42.android.pushservice.permission.C2D_MESSAGE" />
+<!-- This app has permission to register and receive data message. -->
+<uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
+<uses-permission android:name="android.permission.WAKE_LOCK" />
+<!-- GCM requires a Google account. -->
+<uses-permission android:name="android.permission.GET_ACCOUNTS" />
+<uses-permission android:name="android.permission.INTERNET" />
+<uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+<uses-permission android:name="android.permission.HARDWARE_TEST" />
+
+  <application android:icon="@drawable/app_icon" android:label="@string/app_name" android:debuggable="false">
+    <activity android:name=".App42PushActivity" android:launchMode="singleTask" android:label="@string/app_name" android:configChanges="fontScale|keyboard|keyboardHidden|locale|mnc|mcc|navigation|orientation|screenLayout|screenSize|smallestScreenSize|uiMode|touchscreen" android:screenOrientation="portrait">
+      <intent-filter>
+        <action android:name="android.intent.action.MAIN" />
+        <category android:name="android.intent.category.LAUNCHER" />
+      </intent-filter>
+    </activity>
+	<activity
+           android:name=".RegistrationActivity"
+           android:screenOrientation="portrait">
+       </activity>
+   <receiver
+android:name="com.google.android.gcm.GCMBroadcastReceiver"
+android:permission="com.google.android.c2dm.permission.SEND" >
+<intent-filter>
+<!-- Receives the actual messages. -->
+<action android:name="com.google.android.c2dm.intent.RECEIVE" />
+<!-- Receives the registration id. -->
+<action android:name="com.google.android.c2dm.intent.REGISTRATION" />
+
+<category android:name="com.shephertz.app42.android.pushservice" />
+</intent-filter>
+</receiver>
+
+<!--
+Application-specific subclass of GCMBaseIntentService that will
+handle received messages.
+
+By default, it must be named .GCMIntentService, unless the
+application uses a custom BroadcastReceiver that redefines its name.
+
+-->
+<service android:name=".GCMIntentService" /> 
+  <!-- <meta-data name="apiKey" value="60dbe3784fc3a8300bca997651e0f26fa8603831b114b736631bc71ff0d524b5"/>
+          <meta-data name="secretKey" value="e8ce4acd9861b4cdfcff59c98d0f7861c28be42fddbb225b84f7a9613b6210f7"/>
+            <meta-data name="projectNo" value="658052376636"/> -->
+  </application>
+  <uses-feature android:glEsVersion="0x00020000" />
+  <uses-sdk android:minSdkVersion="6" android:targetSdkVersion="17" />
+</manifest>
