@@ -26,11 +26,18 @@ Here are the few easy steps to run this sample app.
 ```
 A. Change apiKey and secretKey that you have received in step 2 or 3.
 B. Change projectNo with your Google Project Number.
-C. Change gameObjectName with your GameObjectName you are using in Game.
-D. Change callBackMethod with your method name on which you have to get PushNotification Callback from Android ex : Success.
+C. Change gameObjectName with your GameObject on which you have to receive notfication callBack from Android.
+D. Change callBackMethod with your method name on which you have to receive notification callBack from Android e.g. Success.
 ```
-12. Create a mathod in your main cs file that you have declared as callBackMethod in Constants.cs file that as one argument String type ex : Success
-13. Build and Run .
+12.Build and Run
+
+__Test and verify PushNotification__
+```
+A. After registering for PushNotification go to AppHQ console and click on Push Notification and select application after selecting User tab.
+B. Select desired user from registered UserList and click on Send Message Button.
+C. Send appropriate message to user by clicking Send Button.
+D. Now you will get same message on your android device and your callBack Method of Unity3D.
+```
 
 
 # Design Details:
@@ -54,3 +61,4 @@ by calling this method in your main cs file.
     		  }
 	}
 ```
+m
