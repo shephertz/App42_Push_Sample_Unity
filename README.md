@@ -32,3 +32,29 @@ Here are the few easy steps to run this sample app.
        d. Change callBackMethod with your method name on which you have to get PushNotification Callback from Android ex : Success.
 12.  Create a mathod in your main cs file that you have declared as callBackMethod in Constants.cs file that as one argument String type ex : Success
 13. Build and Run 
+
+
+# Design Details:
+
+__Push Registration:__ To use Notification message in your game you have to register your game for PushNotification 
+by calling this method in your main cs file.
+
+```
+               public void RegisterForPush(){
+       	
+    Debug.Log("Sending register request... " );
+		 object[] args1 = new object[]{constants.projectNo};
+		 object[] args0 = new object[]{constants.apiKey,constants.secretKey};
+		 object[] args2= new object[]{constants.userId};
+          object[] args3 = new object[]{constants.callBackMethod,constants.gameObjectName};
+          using (AndroidJavaClass cls_obj= new AndroidJavaClass("com.unity3d.player.UnityPlayer")) {
+          using (AndroidJavaObject act_Obj = cls_obj.GetStatic<AndroidJavaObject>("currentActivity")) {
+				act_Obj.Call("intialize",args0);
+				act_Obj.Call("setProjectNo",args1);
+				act_Obj.Call("setCurrentUser",args2);
+                act_Obj.Call("registerForNotification",args3);
+          }
+    
+      }
+	}
+```
