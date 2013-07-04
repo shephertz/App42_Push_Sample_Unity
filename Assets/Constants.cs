@@ -7,7 +7,7 @@ public class Constants {
 	public string secretKey="<YOUR SECRET KEY>";
 	public string projectNo="<YOUR PROJECT NO>";
 	public string userId="<YOUR USER ID>";
-    public string callBackMethod="<CALLBACK METHOD>";
+        public string callBackMethod="<CALLBACK METHOD>";
 	//public string callBackMethod="Success";
 	public string gameObjectName="<GAME OBJECT NAME>";
 	//public string gameObjectName="app42Msg";
