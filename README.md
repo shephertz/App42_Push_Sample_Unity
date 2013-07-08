@@ -39,6 +39,12 @@ C. Send appropriate message to user by clicking Send Button.
 D. Now you will get same message on your android device and your callBack Method of Unity3D.
 ```
 
+__System Requirements:__
+```
+A. Unity 3D.
+B. Android SDK with 4.0 API .
+```
+
 
 # Design Details:
 
