@@ -24,10 +24,7 @@ android:protectionLevel="signature" />
         <category android:name="android.intent.category.LAUNCHER" />
       </intent-filter>
     </activity>
-	<activity
-           android:name=".RegistrationActivity"
-           android:screenOrientation="portrait">
-       </activity>
+	
    <receiver
 android:name="com.google.android.gcm.GCMBroadcastReceiver"
 android:permission="com.google.android.c2dm.permission.SEND" >

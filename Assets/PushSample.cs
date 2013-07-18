@@ -5,16 +5,22 @@ using System.IO;
 public class PushSample: MonoBehaviour
 {
 	Constants constants = new Constants ();
+	string message="No Message yet";
 #if UNITY_ANDROID
 	void OnGUI()
     {
         if (GUI.Button(new Rect(50, 100, 200, 50), "Register For Push"))
         {
-			GameObject androidM = GameObject.Find(constants.gameObjectName);
+			GameObject androidtest = GameObject.Find(constants.gameObjectName);
 			DontDestroyOnLoad(transform.gameObject);
 			this.gameObject.name = constants.gameObjectName;
 			RegisterForPush();
 		}
+		 if (GUI.Button(new Rect(50, 300, 200, 50), "EXit game"))
+        {
+			 Application.Quit();
+		}
+		  GUI.Label(new Rect (50, 200, 300, 50), message);
 	}
 
 	
@@ -39,8 +45,10 @@ public class PushSample: MonoBehaviour
 public void Success(string val) {
 if(val != null) {
 	Debug.Log("Push Message is Here: " + val);
+			message=val;
 }
 }
 	
 #endif
 }
+	
