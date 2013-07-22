@@ -9,20 +9,23 @@ public class PushSample: MonoBehaviour
 #if UNITY_ANDROID
 	void OnGUI()
     {
-        if (GUI.Button(new Rect(50, 100, 200, 50), "Register For Push"))
-        {
-			GameObject androidtest = GameObject.Find(constants.gameObjectName);
-			DontDestroyOnLoad(transform.gameObject);
-			this.gameObject.name = constants.gameObjectName;
-			RegisterForPush();
-		}
+        
 		 if (GUI.Button(new Rect(50, 300, 200, 50), "EXit game"))
         {
 			 Application.Quit();
 		}
 		  GUI.Label(new Rect (50, 200, 300, 50), message);
 	}
-
+	
+	void Start (){
+		GameObject androidtest = GameObject.Find(constants.gameObjectName);
+			DontDestroyOnLoad(transform.gameObject);
+			this.gameObject.name = constants.gameObjectName;
+		RegisterForPush();
+			
+	}
+	
+	
 	
 	public void RegisterForPush(){
 		
