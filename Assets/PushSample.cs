@@ -5,7 +5,9 @@ using System.IO;
 public class PushSample: MonoBehaviour
 {
 	Constants constants = new Constants ();
-	string message="No Message yet";
+	string message = "No Message yet";
+	private AndroidJavaObject testobj = null;
+	private AndroidJavaObject playerActivityContext = null;
 #if UNITY_ANDROID
 	void OnGUI()
     {
@@ -29,20 +31,28 @@ public class PushSample: MonoBehaviour
 	
 	public void RegisterForPush(){
 		
-    Debug.Log("Sending register request... " );
+
 		 object[] args1 = new object[]{constants.projectNo};
 		 object[] args0 = new object[]{constants.apiKey,constants.secretKey};
 		 object[] args2= new object[]{constants.userId};
           object[] args3 = new object[]{constants.callBackMethod,constants.gameObjectName};
-          using (AndroidJavaClass cls_obj= new AndroidJavaClass("com.unity3d.player.UnityPlayer")) {
-          using (AndroidJavaObject act_Obj = cls_obj.GetStatic<AndroidJavaObject>("currentActivity")) {
-				act_Obj.Call("intialize",args0);
-				act_Obj.Call("setProjectNo",args1);
-				act_Obj.Call("setCurrentUser",args2);
-                act_Obj.Call("registerForNotification",args3);
-          }
-    
-      }
+		     if (testobj == null) {
+          using (var actClass = new AndroidJavaClass("com.unity3d.player.UnityPlayer")) {
+                playerActivityContext = actClass.GetStatic<AndroidJavaObject>("currentActivity");
+            
+		
+		     using (var pluginClass = new AndroidJavaClass("com.GoLiveGaming.HumansAndDemons.App42Service")) {
+                if (pluginClass != null) {
+                    testobj = pluginClass.CallStatic<AndroidJavaObject>("instance",playerActivityContext);
+					testobj.Call("intialize",args0);
+				    testobj.Call("setProjectNo",args1);
+				    testobj.Call("setCurrentUser",args2);
+                    testobj.Call("registerForNotification",args3);
+                }
+            }
+                
+			}
+	}
 	}
 		
 public void Success(string val) {
