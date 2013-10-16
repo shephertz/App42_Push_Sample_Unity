@@ -41,7 +41,7 @@ public class PushSample: MonoBehaviour
                 playerActivityContext = actClass.GetStatic<AndroidJavaObject>("currentActivity");
             
 		
-		     using (var pluginClass = new AndroidJavaClass("com.GoLiveGaming.HumansAndDemons.App42Service")) {
+		     using (var pluginClass = new AndroidJavaClass("com.shephertz.app42.android.pushservice.App42Service")) {
                 if (pluginClass != null) {
                     testobj = pluginClass.CallStatic<AndroidJavaObject>("instance",playerActivityContext);
 					testobj.Call("intialize",args0);
