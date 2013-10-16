@@ -48,22 +48,42 @@ B. Android SDK with 4.0 API .
 # Design Details:
 
 __Push Registration:__ To use Notification message in your game you have to register your game for PushNotification 
-by calling this method in your main cs file.
+by calling this method in your main cs file. If you have change the package name by building your own app42pushservice.jar
+than make following change in this method.
+
+A. com.shephertz.app42.android.pushservice must be replaced by "YOUR PACAKGE NAME" (if using customize jar file)
 
 ```
 public void RegisterForPush(){
-	object[] args1 = new object[]{constants.projectNo};
-	object[] args0 = new object[]{constants.apiKey,constants.secretKey};
-	object[] args2= new object[]{constants.userId};
-	object[] args3 = new object[]{constants.callBackMethod,constants.gameObjectName};
-	using (AndroidJavaClass cls_obj= new AndroidJavaClass("com.unity3d.player.UnityPlayer")) {
-	using (AndroidJavaObject act_Obj = cls_obj.GetStatic<AndroidJavaObject>("currentActivity")) {
-	act_Obj.Call("intialize",args0);
-	act_Obj.Call("setProjectNo",args1);
-	act_Obj.Call("setCurrentUser",args2);
-	act_Obj.Call("registerForNotification",args3);
-	}
-     }
-}
+		 object[] args1 = new object[]{constants.projectNo};
+		 object[] args0 = new object[]{constants.apiKey,constants.secretKey};
+		 object[] args2= new object[]{constants.userId};
+          object[] args3 = new object[]{constants.callBackMethod,constants.gameObjectName};
+		     if (testobj == null) {
+          using (var actClass = new AndroidJavaClass("com.unity3d.player.UnityPlayer")) {
+                playerActivityContext = actClass.GetStatic<AndroidJavaObject>("currentActivity");
+            
+		
+		     using (var pluginClass = new AndroidJavaClass("com.shephertz.app42.android.pushservice.App42Service")) {
+                if (pluginClass != null) {
+                    testobj = pluginClass.CallStatic<AndroidJavaObject>("instance",playerActivityContext);
+					testobj.Call("intialize",args0);
+				    testobj.Call("setProjectNo",args1);
+				    testobj.Call("setCurrentUser",args2);
+                    testobj.Call("registerForNotification",args3);
+                }
+            }
+	 }
+      }
+    }
+```
+
+__AndroidManifest Changes:__ To use Notification message in your game you have to make following changes in AndroidManifest.xml file.
+
+1. Add Your Launcher Activty in AndroidManifest.xml file.</br>
+2. Change "com.GoLiveGaming.HumansAndDemons.MainActivity" with your Activity on which you want to navigate when PushNotification is clicked by user. 
+
+```
+  <meta-data android:name="onMessageOpen" android:value="com.GoLiveGaming.HumansAndDemons.MainActivity" />
 ```
 
