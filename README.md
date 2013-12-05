@@ -3,18 +3,18 @@ App42_Push_Sample_Unity
 
 # About Application
 
-1. This application shows how can we integrate our Unity3D game with PushNotification using android Framework.
-2. Once a game registered for PushNotification Unity3D game get Notification message accordingly.
+1. This application shows how can we integrate our Unity3D game with Push Notification using android Framework.
+2. Once a game registered for Push Notification Unity3D game get Notification message accordingly.
 
 # Running Sample
 
-This is a sample Android Unity 3D app is made by using App42 backend platform. It uses Push Notification of App42 platform.
+This is a sample Android Unity 3D app is made by using App42 back-end platform. It uses Push Notification of App42 platform.
 Here are the few easy steps to run this sample app.
 
 1. [Register] (https://apphq.shephertz.com/register) with App42 platform.
 2. Create an app once you are on Quick start page after registration.
 3. If you are already registered, login to [AppHQ] (http://apphq.shephertz.com) console and create an app from App Manager Tab.
-4. To use PushNotification service in your application open this [link] (https://code.google.com/apis/console/b/0/?noredirect&pli=1) and create a new project here..
+4. To use PushNotification service in your application open this create a new project in [Google API Console] (https://code.google.com/apis/console/b/0/?noredirect&pli=1).
 5. Click on services option in Google console and enable Google Cloud Messaging for Android service.
 6. Click on API Access tab and create a new server key for your application with blank server information.
 7. Go to [AppHQ] (http://apphq.shephertz.com) console and click on Push Notification and select Android setting in Settings option.
@@ -25,17 +25,17 @@ Here are the few easy steps to run this sample app.
 ```
 A. Change apiKey and secretKey that you have received in step 2 or 3.
 B. Change projectNo with your Google Project Number.
-C. Change gameObjectName with your GameObject on which you have to receive notfication callBack from Android.
-D. Change callBackMethod with your method name on which you have to receive notification callBack from Android e.g. Success.
+C. Change gameObjectName with your GameObject on which you have to receive Push Notification callback from Android.
+D. Change callBackMethod with your method name on which you have to receive Push Notificationcallback from Android e.g. Success.
 ```
 11.Build your android apk.
 
-__Test and verify PushNotification__
+__Test and verify Push Notification__
 ```
-A. After registering for PushNotification go to AppHQ console and click on Push Notification and select application after selecting User tab.
+A. After registering for Push Notification go to AppHQ console and click on Push Notification and select application after selecting User tab.
 B. Select desired user from registered UserList and click on Send Message Button.
 C. Send appropriate message to user by clicking Send Button.
-D. Now you will get same message on your android device and your callBack Method of Unity3D.
+D. Now you will get same message on your android device and your callback Method of Unity3D.
 ```
 
 __System Requirements:__
@@ -47,14 +47,14 @@ B. Android SDK with 4.0 API .
 __Prior Checks:__ Before building android application please review following things :
 
 1. Bundle Identifier* name should be same as your package name defined in AndroidMaifest.xml file.</br>
-2. You have attached PushSample.cs file on MainCamera. 
-4. You can also replace PushNotification icon with your icon in \Assets\plugins\Android\assets folder with same name and same type.
+2. You have attached PushSample.cs file on MainCamera.
+4. You can also replace Push Notification icon with your icon in \Assets\plugins\Android\assets folder with same name and same type.
 
 __Customize with your Android Game:__ To use Notification message in your game you have to make following changes in AndroidManifest.xml file in Assets\plugins\Android folder.
 
 1. Replace sampleAndroid.jar with your Android game Jar.</br>
 
-2. Replace ""com.shephertz.app42.unity.android.test.MainActivity" with your Launcher Activity  in AndroidManifest.xml file.</br>
+2. Replace "com.shephertz.app42.unity.android.test.MainActivity" with your Launcher Activity  in AndroidManifest.xml file.</br>
 ```
   <activity android:name="com.shephertz.app42.unity.android.test.MainActivity" >
             <intent-filter>
@@ -63,7 +63,7 @@ __Customize with your Android Game:__ To use Notification message in your game y
             </intent-filter>
         </activity>
 ```
-3. Change "com.shephertz.app42.unity.android.test.MainActivity" with your Activity on which you want to navigate when PushNotification is clicked by user. 
+3. Change "com.shephertz.app42.unity.android.test.MainActivity" with your Activity on which you want to navigate when PushNotification is clicked by user.
 ```
   <meta-data android:name="onMessageOpen" android:value="com.shephertz.app42.unity.android.test.MainActivity" />
 ```
@@ -72,7 +72,7 @@ __Customize with your Android Game:__ To use Notification message in your game y
 
 # Design Details:
 
-__Push Registration:__ To use Notification message in your game you have to register your game for PushNotification 
+__Push Registration:__ To use Notification message in your game you have to register your game for PushNotification
 by calling this method in your main cs file. If you have change the package name by building your own app42pushservice.jar
 than make following change in this method.
 
@@ -80,29 +80,23 @@ A. com.shephertz.app42.android.pushservice must be replaced by "YOUR PACAKGE NAM
 
 ```
 public void RegisterForPush(){
-		 object[] args1 = new object[]{constants.projectNo};
-		 object[] args0 = new object[]{constants.apiKey,constants.secretKey};
-		 object[] args2= new object[]{constants.userId};
+         object[] args1 = new object[]{constants.projectNo};
+         object[] args0 = new object[]{constants.apiKey,constants.secretKey};
+         object[] args2= new object[]{constants.userId};
           object[] args3 = new object[]{constants.callBackMethod,constants.gameObjectName};
-		     if (testobj == null) {
+             if (testobj == null) {
           using (var actClass = new AndroidJavaClass("com.unity3d.player.UnityPlayer")) {
                 playerActivityContext = actClass.GetStatic<AndroidJavaObject>("currentActivity");
-            
-		
-		     using (var pluginClass = new AndroidJavaClass("com.shephertz.app42.android.pushservice.App42Service")) {
+             using (var pluginClass = new AndroidJavaClass("com.shephertz.app42.android.pushservice.App42Service")) {
                 if (pluginClass != null) {
                     testobj = pluginClass.CallStatic<AndroidJavaObject>("instance",playerActivityContext);
-					testobj.Call("intialize",args0);
-				    testobj.Call("setProjectNo",args1);
-				    testobj.Call("setCurrentUser",args2);
+                    testobj.Call("intialize",args0);
+                    testobj.Call("setProjectNo",args1);
+                    testobj.Call("setCurrentUser",args2);
                     testobj.Call("registerForNotification",args3);
                 }
             }
 	 }
-      }
-    }
+       }
+     }
 ```
-
-
-
-
