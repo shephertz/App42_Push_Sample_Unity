@@ -55,7 +55,7 @@
 
         -->
           <service android:name="com.shephertz.app42.android.pushservice.GCMIntentService" >
-            <meta-data android:name="onMessageOpen" android:value="com.shephertz.app42.unity.android.test.MainActivty" />
+            <meta-data android:name="onMessageOpen" android:value="com.shephertz.app42.unity.android.test.MainActivity" />
         </service>
       
     </application>
