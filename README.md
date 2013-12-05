@@ -14,7 +14,7 @@ Here are the few easy steps to run this sample app.
 1. [Register] (https://apphq.shephertz.com/register) with App42 platform.
 2. Create an app once you are on Quick start page after registration.
 3. If you are already registered, login to [AppHQ] (http://apphq.shephertz.com) console and create an app from App Manager Tab.
-4. To use push Notification service in your application go to https://code.google.com/apis/console a new project here.
+4. To use PushNotification service in your application open this [link] (https://code.google.com/apis/console/b/0/?noredirect&pli=1) and create a new project here..
 5. Click on services option in Google console and enable Google Cloud Messaging for Android service.
 6. Click on API Access tab and create a new server key for your application with blank server information.
 7. Go to [AppHQ] (http://apphq.shephertz.com) console and click on Push Notification and select Android setting in Settings option.
@@ -44,26 +44,54 @@ A. Unity 3D.
 B. Android SDK with 4.0 API .
 ```
 
+__Prior Checks:__ Before building android application please review following things :
 
+1. Bundle Identifier* name should be same as your package name defined in AndroidMaifest.xml file.</br>
+2. You have attached PushSample.cs file on MainCamera. 
+3. You have added your jar file that contains your own Android project in ..\Assets\plugins\Android folder.
+4. You can also replce PushNotification icon with your icon in \Assets\plugins\Android\assets folder with same name and same type.
+
+__AndroidManifest Changes:__ To use Notification message in your game you have to make following changes in AndroidManifest.xml file.
+
+1. Add Your Launcher Activty in AndroidManifest.xml file.</br>
+2. Change "com.GoLiveGaming.HumansAndDemons.MainActivity" with your Activity on which you want to navigate when PushNotification is clicked by user. 
+
+```
+  <meta-data android:name="onMessageOpen" android:value="com.GoLiveGaming.HumansAndDemons.MainActivity" />
+```
 # Design Details:
 
 __Push Registration:__ To use Notification message in your game you have to register your game for PushNotification 
-by calling this method in your main cs file.
+by calling this method in your main cs file. If you have change the package name by building your own app42pushservice.jar
+than make following change in this method.
+
+A. com.shephertz.app42.android.pushservice must be replaced by "YOUR PACAKGE NAME" (if using customize jar file)
 
 ```
 public void RegisterForPush(){
-	object[] args1 = new object[]{constants.projectNo};
-	object[] args0 = new object[]{constants.apiKey,constants.secretKey};
-	object[] args2= new object[]{constants.userId};
-	object[] args3 = new object[]{constants.callBackMethod,constants.gameObjectName};
-	using (AndroidJavaClass cls_obj= new AndroidJavaClass("com.unity3d.player.UnityPlayer")) {
-	using (AndroidJavaObject act_Obj = cls_obj.GetStatic<AndroidJavaObject>("currentActivity")) {
-	act_Obj.Call("intialize",args0);
-	act_Obj.Call("setProjectNo",args1);
-	act_Obj.Call("setCurrentUser",args2);
-	act_Obj.Call("registerForNotification",args3);
-	}
-     }
-}
+		 object[] args1 = new object[]{constants.projectNo};
+		 object[] args0 = new object[]{constants.apiKey,constants.secretKey};
+		 object[] args2= new object[]{constants.userId};
+          object[] args3 = new object[]{constants.callBackMethod,constants.gameObjectName};
+		     if (testobj == null) {
+          using (var actClass = new AndroidJavaClass("com.unity3d.player.UnityPlayer")) {
+                playerActivityContext = actClass.GetStatic<AndroidJavaObject>("currentActivity");
+            
+		
+		     using (var pluginClass = new AndroidJavaClass("com.shephertz.app42.android.pushservice.App42Service")) {
+                if (pluginClass != null) {
+                    testobj = pluginClass.CallStatic<AndroidJavaObject>("instance",playerActivityContext);
+					testobj.Call("intialize",args0);
+				    testobj.Call("setProjectNo",args1);
+				    testobj.Call("setCurrentUser",args2);
+                    testobj.Call("registerForNotification",args3);
+                }
+            }
+	 }
+      }
+    }
 ```
+
+
+
 
