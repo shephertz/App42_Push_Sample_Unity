@@ -92,14 +92,6 @@ public void RegisterForPush(){
     }
 ```
 
-__AndroidManifest Changes:__ To use Notification message in your game you have to make following changes in AndroidManifest.xml file.
-
-1. Add Your Launcher Activty in AndroidManifest.xml file.</br>
-2. Change "com.GoLiveGaming.HumansAndDemons.MainActivity" with your Activity on which you want to navigate when PushNotification is clicked by user. 
-
-```
-  <meta-data android:name="onMessageOpen" android:value="com.GoLiveGaming.HumansAndDemons.MainActivity" />
-```
 
 
 
