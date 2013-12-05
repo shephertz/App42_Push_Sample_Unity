@@ -64,10 +64,12 @@ __Customize with your Android Game:__ To use Notification message in your game y
         </activity>
 ```
 3. Change "com.shephertz.app42.unity.android.test.MainActivity" with your Activity on which you want to navigate when PushNotification is clicked by user. 
-
 ```
   <meta-data android:name="onMessageOpen" android:value="com.shephertz.app42.unity.android.test.MainActivity" />
 ```
+4. Modify AndroidManifest.xml file with your AndroidManifest.xml accordingly.
+
+
 # Design Details:
 
 __Push Registration:__ To use Notification message in your game you have to register your game for PushNotification 
