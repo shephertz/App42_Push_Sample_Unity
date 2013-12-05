@@ -51,7 +51,14 @@ __Prior Checks:__ Before building android application please review following th
 3. You have added your jar file that contains your own Android project in ..\Assets\plugins\Android folder.
 4. You can also replce PushNotification icon with your icon in \Assets\plugins\Android\assets folder with same name and same type.
 
+__AndroidManifest Changes:__ To use Notification message in your game you have to make following changes in AndroidManifest.xml file.
 
+1. Add Your Launcher Activty in AndroidManifest.xml file.</br>
+2. Change "com.GoLiveGaming.HumansAndDemons.MainActivity" with your Activity on which you want to navigate when PushNotification is clicked by user. 
+
+```
+  <meta-data android:name="onMessageOpen" android:value="com.GoLiveGaming.HumansAndDemons.MainActivity" />
+```
 # Design Details:
 
 __Push Registration:__ To use Notification message in your game you have to register your game for PushNotification 
