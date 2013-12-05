@@ -48,16 +48,25 @@ __Prior Checks:__ Before building android application please review following th
 
 1. Bundle Identifier* name should be same as your package name defined in AndroidMaifest.xml file.</br>
 2. You have attached PushSample.cs file on MainCamera. 
-3. You have added your jar file that contains your own Android project in ..\Assets\plugins\Android folder.
-4. You can also replce PushNotification icon with your icon in \Assets\plugins\Android\assets folder with same name and same type.
+4. You can also replace PushNotification icon with your icon in \Assets\plugins\Android\assets folder with same name and same type.
 
-__AndroidManifest Changes:__ To use Notification message in your game you have to make following changes in AndroidManifest.xml file.
+__Customize with your Android Game:__ To use Notification message in your game you have to make following changes in AndroidManifest.xml file in Assets\plugins\Android folder.
 
-1. Add Your Launcher Activty in AndroidManifest.xml file.</br>
-2. Change "com.GoLiveGaming.HumansAndDemons.MainActivity" with your Activity on which you want to navigate when PushNotification is clicked by user. 
+1. Replace sampleAndroid.jar with your Android game Jar.</br>
+
+2. Replace ""com.shephertz.app42.unity.android.test.MainActivity" with your Launcher Activity  in AndroidManifest.xml file.</br>
+```
+  <activity android:name="com.shephertz.app42.unity.android.test.MainActivity" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+```
+3. Change "com.shephertz.app42.unity.android.test.MainActivity" with your Activity on which you want to navigate when PushNotification is clicked by user. 
 
 ```
-  <meta-data android:name="onMessageOpen" android:value="com.GoLiveGaming.HumansAndDemons.MainActivity" />
+  <meta-data android:name="onMessageOpen" android:value="com.shephertz.app42.unity.android.test.MainActivity" />
 ```
 # Design Details:
 
