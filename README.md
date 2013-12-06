@@ -50,11 +50,11 @@ __Prior Checks:__ Before building android application please review following th
 2. You have attached PushSample.cs file on MainCamera.
 4. You can also replace Push Notification icon with your icon in \Assets\plugins\Android\assets folder with same name and same type.
 
-__Customize with your Android Game:__ To use Notification message in your game you have to make following changes in AndroidManifest.xml file in Assets\plugins\Android folder.
+__Modifying Main Activity:__ This sample uses its own Main activity however if you want to use your own main activity or other third party Main Activity in your game you have to make following changes in AndroidManifest.xml file available in Assets\plugins\Android folder.
 
-1. Replace sampleAndroid.jar with your Android game Jar.</br>
+1. Delete sampleAndroid.jar and put your jar file which contains  Main Activity</br>
 
-2. Replace "com.shephertz.app42.unity.android.test.MainActivity" with your Launcher Activity  in AndroidManifest.xml file.</br>
+2. Replace "com.shephertz.app42.unity.android.test.MainActivity" with your Launcher/Main Activity  in AndroidManifest.xml file.</br>
 ```
   <activity android:name="com.shephertz.app42.unity.android.test.MainActivity" >
             <intent-filter>
