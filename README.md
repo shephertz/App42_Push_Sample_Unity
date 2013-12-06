@@ -46,7 +46,7 @@ B. Android SDK with 4.0 API .
 
 __Prior Checks:__ Before building android application please review following things :
 
-1. Bundle Identifier* name should be same as your package name defined in AndroidMaifest.xml file.</br>
+1. Bundle Identifier* name should be same as your package name defined in AndroidMaifest.xml file. In this sample it is being used as com.shephertz.app42.android.pushservice</br>
 2. You have attached PushSample.cs file on MainCamera.
 4. You can also replace Push Notification icon with your icon in \Assets\plugins\Android\assets folder with same name and same type.
 
