@@ -76,7 +76,7 @@ __Push Registration:__ To use Notification message in your game you have to regi
 by calling this method in your main cs file. If you have change the package name by building your own app42pushservice.jar
 than make following change in this method.
 
-A. com.shephertz.app42.android.pushservice must be replaced by "YOUR PACAKGE NAME" (if using customize jar file)
+A. com.shephertz.app42.android.pushservice must be replaced by "YOUR PACAKGE NAME" if you are using your own package name and requires new jar file app42pushservice.jar to be used. You can create this by rebuilding  (this) [https://github.com/shephertz/App42_Push_Unity_Lib] libraray project with your package name.
 
 ```
 public void RegisterForPush(){
