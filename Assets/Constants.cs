@@ -3,12 +3,14 @@ using System.Collections;
 
 public class Constants {
 
-	public string apiKey ="<YOUR API KEY>";
-	public string secretKey="<YOUR SECRET KEY>";
-	public string projectNo="<YOUR PROJECT NO>";
-	public string userId="<YOUR USER ID>";
+	public const string ApiKey ="<YOUR API KEY>";
+	public const string SecretKey=="<YOUR SECRET KEY>";
+	public const string GoogleProjectNo="<YOUR PROJECT NO>";
+	public const string UserId="<YOUR USER ID>";
  // public string callBackMethod="<CALLBACK METHOD>";
-	public string callBackMethod="Success";
+	public const string CallBackMethod="Success";
  //	public string gameObjectName="<GAME OBJECT NAME>";
-	public string gameObjectName="app42Msg";
+	public const string GameObjectName="app42Msg";
+	public const string DeviceType="Android";
+
 }
