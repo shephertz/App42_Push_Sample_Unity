@@ -25,7 +25,7 @@ Here are the few easy steps to run this sample app.
 ```
 A. Change ApiKey and SecretKey that you have received in step 2 or 3 at line no 6 and 7.
 B. Change GoogleProjectNo with your Google Project Number  at line no 8.
-C. Change UserId with your username you want tp register for Push Notification at line no 8.
+C. Change UserId with your username you want tp register for Push Notification at line no 9.
 D. Change GameObjectName with your GameObject on which you have to receive Push Notification callback from Android e.g. Success app42Msg.
 E. Change callBackMethod with your method name on which you have to receive Push Notificationcallback from Android e.g. Success.
 ```
@@ -86,7 +86,6 @@ public void RegisterForPush(){
 		     if (testobj == null) {
           using (var actClass = new AndroidJavaClass("com.unity3d.player.UnityPlayer")) {
                 playerActivityContext = actClass.GetStatic<AndroidJavaObject>("currentActivity");
-            
 		     using (var pluginClass = new AndroidJavaClass("com.shephertz.app42.android.pushservice.App42Service")) {
                 if (pluginClass != null) {
                     testobj = pluginClass.CallStatic<AndroidJavaObject>("instance",playerActivityContext);
@@ -113,6 +112,6 @@ __Send PushNotification to all users using Unity App42 SDK :__ You can use this 
 ```
 	 public void sendPushToAll(string msg){	
 		 App42API.BuildPushNotificationService().SendPushMessageToAll(msg,new Callback());
-         }
+        }
 
 ```
