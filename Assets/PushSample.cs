@@ -66,6 +66,8 @@ public class PushSample: MonoBehaviour
 			this.gameObject.name = Constants.GameObjectName;
 		    App42API.Initialize(Constants.ApiKey,Constants.SecretKey);
 	    	App42API.SetLoggedInUser(Constants.UserId);
+		    //If your App is ACL App than use this
+		    //App42API.SetUserSessionId("Your Session Id");
 		    RegisterForPush();
 	}
 	
