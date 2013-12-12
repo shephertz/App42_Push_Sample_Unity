@@ -13,7 +13,7 @@ public class PushSample: MonoBehaviour
 	string message = "No Message yet";
 	private AndroidJavaObject testobj = null;
 	private AndroidJavaObject playerActivityContext = null;
-	private string userName = "pintu";
+	private string userName = "";
 	private string myMsg = "Hi I am using Push App42";
 	public const string UnityRegistrationMethod = "StoreDeviceId";
 	public string app42Response="";
