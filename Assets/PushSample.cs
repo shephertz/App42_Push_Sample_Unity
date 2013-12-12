@@ -66,8 +66,8 @@ public class PushSample: MonoBehaviour
 			this.gameObject.name = Constants.GameObjectName;
 		    App42API.Initialize(Constants.ApiKey,Constants.SecretKey);
 	    	App42API.SetLoggedInUser(Constants.UserId);
-		    //If your App is ACL App than use this
-		    //App42API.SetUserSessionId("Your Session Id");
+		    //If your App is ACL App, uncomment and pass session id of logged in user in below line
+		    //App42API.SetUserSessionId("<Logged_In_User_Session_Id>");
 		    RegisterForPush();
 	}
 	
@@ -92,7 +92,7 @@ public class PushSample: MonoBehaviour
 	
 	}
 	/*
-	 * This Function calls from Native Android Code to store Device Id for Push Notification.
+	 * This function is called from Native Android Code to store Device Id for Push Notification.
 	 * @param deviceId require to register for Push Notification on App42 API
 	 * 
 	 */
@@ -102,7 +102,7 @@ public class PushSample: MonoBehaviour
     }	
 	
 	/*
-	 * This Function calls from Native Android Code to whenever any Push Notification receive.
+	 * This function is called from Native Android Code to whenever any Push Notification receive.
 	 * @param msg Push Notification message
 	 * 
 	 */
