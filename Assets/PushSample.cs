@@ -33,6 +33,7 @@ public class PushSample: MonoBehaviour
 		 if (GUI.Button(new Rect (5, 240, 300, 50), "Send Push To User"))
         {
 			sendPushToUser(userName,myMsg);
+
 		}
 		 if (GUI.Button(new Rect (5, 300, 300, 50), "Send Push To All"))
         {
@@ -69,6 +70,8 @@ public class PushSample: MonoBehaviour
 		    //If your App is ACL App, uncomment and pass session id of logged in user in below line
 		    //App42API.SetUserSessionId("<Logged_In_User_Session_Id>");
 		    RegisterForPush();
+		    getLastMessage();
+		  
 	}
 	
 	
@@ -76,10 +79,8 @@ public class PushSample: MonoBehaviour
 	public void RegisterForPush(){
 		 object[] googleProjectNo = new object[]{Constants.GoogleProjectNo};
           object[] unityParam = new object[]{Constants.CallBackMethod,Constants.GameObjectName,UnityRegistrationMethod};
-		     if (testobj == null) {
           using (var actClass = new AndroidJavaClass("com.unity3d.player.UnityPlayer")) {
                 playerActivityContext = actClass.GetStatic<AndroidJavaObject>("currentActivity");
-            
 		     using (var pluginClass = new AndroidJavaClass("com.shephertz.app42.android.pushservice.App42Service")) {
                 if (pluginClass != null) {
                     testobj = pluginClass.CallStatic<AndroidJavaObject>("instance",playerActivityContext);
@@ -88,8 +89,21 @@ public class PushSample: MonoBehaviour
                 }
           	  }
             }
-	     }
+	}
 	
+	
+	public void getLastMessage(){
+		 object[] googleProjectNo = new object[]{Constants.GoogleProjectNo};
+          object[] unityParam = new object[]{Constants.CallBackMethod,Constants.GameObjectName,UnityRegistrationMethod};
+          using (var actClass = new AndroidJavaClass("com.unity3d.player.UnityPlayer")) {
+                playerActivityContext = actClass.GetStatic<AndroidJavaObject>("currentActivity");
+		     using (var pluginClass = new AndroidJavaClass("com.shephertz.app42.android.pushservice.App42Service")) {
+                if (pluginClass != null) {
+                    testobj = pluginClass.CallStatic<AndroidJavaObject>("instance",playerActivityContext);
+				    testobj.Call("getLastMessage");
+                }
+          	  }
+            }
 	}
 	/*
 	 * This function is called from Native Android Code to store Device Id for Push Notification.
@@ -110,6 +124,7 @@ public class PushSample: MonoBehaviour
          if(msg != null) {
 	       Debug.Log("Push Message is Here: " + msg);
 	       message=msg;
+			app42Response="";
           }
        }
 	
