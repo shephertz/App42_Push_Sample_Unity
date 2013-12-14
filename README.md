@@ -49,7 +49,7 @@ __Prior Checks:__ Before building android application please review following th
 
 1. Bundle Identifier* name should be same as your package name defined in AndroidMaifest.xml file. In this sample it is being used as com.shephertz.app42.android.pushservice</br>
 2. You have attached PushSample.cs file on MainCamera.
-4. You can also replace Push Notification icon with your icon in \Assets\plugins\Android\assets folder with same name and same type.
+3. You can also replace Push Notification icon with your icon in \Assets\plugins\Android\assets folder with same name and same type.
 
 __Modifying Main Activity:__ This sample uses its own Main Activity however if you want to use your own Main Activity or other third party Main Activity in your game you have to make following changes in AndroidManifest.xml file available in Assets\plugins\Android folder.
 
