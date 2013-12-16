@@ -129,3 +129,114 @@ __Get Last Push Notification Message :__ You can use this method to getLast Push
 	}
 
 ```
+
+# 8. Customize Sample for Your Application.
+
+__Configuring Notification UI:__ If you want to customize Notification UI.Download library project from [here] (https://github.com/shephertz/App42_Push_Unity_Lib/archive/master.zip) and import it in your eclipse.
+Push notification received on user device can be configured and can be controlled from the code written in generateNotification method in GCMIntentService.java file in library project as shown below
+```
+Notification notification = new NotificationCompat.Builder(context)
+				.setContentTitle(ServiceContext.instance(context).getGameObject())
+				.setContentText(message).
+				 setContentIntent(intent)
+				.setSmallIcon(android.R.drawable.ic_dialog_info)
+				.setWhen(when)
+				.setNumber(++msgCount)
+				.setLargeIcon(getBitmapFromAssets())
+				.setLights(Color.YELLOW, 1, 2)
+				.setAutoCancel(true).build();
+
+		notification.defaults |= Notification.DEFAULT_SOUND;
+		notification.defaults |= Notification.DEFAULT_VIBRATE;
+		notificationManager.notify(0, notification);
+```
+A. Build your library project.
+B. Copy app42pushservice.jar from your bin folder of library Project folder and replace/paste it into Assets\plugins\Android of your Unity project
+
+
+__AndroidManifest.xml customization:__  If you are customizing your own Unity Android application for Push Notification. So make following changes in your AndroidManifest.xml using this sample's AndroidManifest.xml file.
+
+1. Add following permission in your AndroidManifest.xml file.
+```
+  <uses-permission android:name="android.permission.GET_ACCOUNTS" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.HARDWARE_TEST" />
+    <uses-permission android:name="android.permission.VIBRATE" />
+   <uses-permission android:name="android.permission.WAKE_LOCK" />
+  <!-- This app has permission to register and receive data message. -->
+    <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
+
+    <permission
+        android:name="<You Package Name>.permission.C2D_MESSAGE"
+        android:protectionLevel="signature" />
+    <uses-permission android:name="<You Package Name>.permission.C2D_MESSAGE" />
+  
+
+```
+
+2.Add Receiver component in your Androidmanifest.xml file.
+
+```
+    <receiver
+            android:name="com.shephertz.app42.android.pushservice.App42GCMReceiver"
+            android:permission="com.google.android.c2dm.permission.SEND" >
+            <intent-filter>
+
+                <!-- Receives the actual messages. -->
+                <action android:name="com.google.android.c2dm.intent.RECEIVE" />
+                <!-- Receives the registration id. -->
+                <action android:name="com.google.android.c2dm.intent.REGISTRATION" />
+
+                <category android:name="<Your Package Name>" />
+            </intent-filter>
+        </receiver>
+
+```
+3. Define Service in your AndroidManifest.xml file.Also define Activity name which should be open when Push Notification is opened.
+
+```
+  <service android:name="com.sample.unity.app.App4GCMService" >
+<meta-data android:name="onMessageOpen" android:value="<Your Activtiy Here >" />
+       </service>
+```
+
+5.  Add security certificate in your own cs file in which you are registering for Push Notification as added in PushSample.cs file of sample project e.g.
+
+```
+      //import statements
+      using System.Net.Security;
+      using System.Security.Cryptography.X509Certificates;
+     
+       // Define Validator callback method. 
+       public static bool Validator (object sender, X509Certificate certificate, X509Chain 
+         chain, SslPolicyErrors sslPolicyErrors)
+	{
+		return true;
+	}
+     //Call it in Start method of Unity e.g.
+     void Start (){
+                // Validator callback for security certificate
+		ServicePointManager.ServerCertificateValidationCallback = Validator;
+
+		    GameObject androidtest = GameObject.Find(Constants.GameObjectName);
+			DontDestroyOnLoad(transform.gameObject);
+			this.gameObject.name = Constants.GameObjectName;
+		    App42API.Initialize(Constants.ApiKey,Constants.SecretKey);
+	    	    App42API.SetLoggedInUser(Constants.UserId);
+		    //If your App is ACL App, uncomment and pass session id of logged in user in below line
+		    //App42API.SetUserSessionId("<Logged_In_User_Session_Id>");
+		    RegisterForPush();
+	}
+```
+
+__Prior Checks:__ Before building Unity Android application please review following :
+
+1. Bundle Identifier* name should be same as your package name defined in AndroidMaifest.xml file. In this sample it is being used as "com.shephertz.app42.unity.android.test".
+2. You have attached PushSample.cs file on Main Camera in case of using sample.
+3. You can also replace Push Notification icon with your icon in \Assets\plugins\Android\assets folder with same name and same type.
+4. Assets folder contains same plugin structure like the sample project.
+
+__Build and Run:__ After customizing your Unity Android Application built your Android application. and run it in your device.
