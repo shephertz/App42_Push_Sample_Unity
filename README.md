@@ -47,7 +47,7 @@ B. Android SDK with 4.0 API .
 
 __Prior Checks:__ Before building android application please review following things :
 
-1. Bundle Identifier* name should be same as your package name defined in AndroidMaifest.xml file. In this sample it is being used as com.shephertz.app42.android.pushservice</br>
+1. Bundle Identifier* name should be same as your package name defined in AndroidMaifest.xml file. In this sample it is being used as com.shephertz.app42.unity.android.test</br>
 2. You have attached PushSample.cs file on MainCamera.
 3. You can also replace Push Notification icon with your icon in \Assets\plugins\Android\assets folder with same name and same type.
 
@@ -74,16 +74,12 @@ __Modifying Main Activity:__ This sample uses its own Main Activity however if y
 # Design Details:
 
 __Push Registration:__ To use Notification message in your game you have to register your game for PushNotification
-by calling this method in your main cs file. If you have change the package name by building your own app42pushservice.jar
-than make following change in this method.
-
-A. com.shephertz.app42.android.pushservice must be replaced by "YOUR PACAKGE NAME" if you are using your own package name and requires new jar file app42pushservice.jar to be used. You can create this by rebuilding  [this] (https://github.com/shephertz/App42_Push_Unity_Lib) libraray project with your package name.
+by calling this method in your main cs file. 
 
 ```
 public void RegisterForPush(){
 		 object[] googleProjectNo = new object[]{Constants.GoogleProjectNo};
           object[] unityParam = new object[]{Constants.CallBackMethod,Constants.GameObjectName,UnityRegistrationMethod};
-		     if (testobj == null) {
           using (var actClass = new AndroidJavaClass("com.unity3d.player.UnityPlayer")) {
                 playerActivityContext = actClass.GetStatic<AndroidJavaObject>("currentActivity");
 		     using (var pluginClass = new AndroidJavaClass("com.shephertz.app42.android.pushservice.App42Service")) {
@@ -92,10 +88,9 @@ public void RegisterForPush(){
 				    testobj.Call("setProjectNo",googleProjectNo);
                     testobj.Call("registerForNotification",unityParam);
                 }
-             }
-          }
-       }
-    }
+          	  }
+            }
+	}
 ```
 
 __Send PushNotification to User using Unity App42 SDK :__ You can use this method written in PushSample..cs file.
@@ -113,5 +108,24 @@ __Send PushNotification to all users using Unity App42 SDK :__ You can use this 
 	 public void sendPushToAll(string msg){	
 		 App42API.BuildPushNotificationService().SendPushMessageToAll(msg,new Callback());
         }
+
+```
+
+__Get Last Push Notification Message :__ You can use this method to getLast Push Notification message, written in PushSample..cs file..
+ 
+```
+	public void getLastMessage(){
+		 object[] googleProjectNo = new object[]{Constants.GoogleProjectNo};
+          object[] unityParam = new object[]{Constants.CallBackMethod,Constants.GameObjectName,UnityRegistrationMethod};
+          using (var actClass = new AndroidJavaClass("com.unity3d.player.UnityPlayer")) {
+                playerActivityContext = actClass.GetStatic<AndroidJavaObject>("currentActivity");
+		     using (var pluginClass = new AndroidJavaClass("com.shephertz.app42.android.pushservice.App42Service")) {
+                if (pluginClass != null) {
+                    testobj = pluginClass.CallStatic<AndroidJavaObject>("instance",playerActivityContext);
+				    testobj.Call("getLastMessage");
+                }
+          	  }
+            }
+	}
 
 ```
