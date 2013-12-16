@@ -130,7 +130,7 @@ __Get Last Push Notification Message :__ You can use this method to getLast Push
 
 ```
 
-# 8. Customize Sample for Your Application.
+# Customize Sample for Your Application.
 
 __Configuring Notification UI:__ If you want to customize Notification UI.Download library project from [here] (https://github.com/shephertz/App42_Push_Unity_Lib/archive/master.zip) and import it in your eclipse.
 Push notification received on user device can be configured and can be controlled from the code written in generateNotification method in GCMIntentService.java file in library project as shown below
@@ -174,7 +174,6 @@ __AndroidManifest.xml customization:__  If you are customizing your own Unity An
         android:protectionLevel="signature" />
     <uses-permission android:name="<You Package Name>.permission.C2D_MESSAGE" />
   
-
 ```
 
 2.Add Receiver component in your Androidmanifest.xml file.
@@ -195,6 +194,7 @@ __AndroidManifest.xml customization:__  If you are customizing your own Unity An
         </receiver>
 
 ```
+
 3. Define Service in your AndroidManifest.xml file.Also define Activity name which should be open when Push Notification is opened.
 
 ```
