@@ -150,13 +150,16 @@ Notification notification = new NotificationCompat.Builder(context)
 		notification.defaults |= Notification.DEFAULT_VIBRATE;
 		notificationManager.notify(0, notification);
 ```
+
 A. Build your library project.
+
 B. Copy app42pushservice.jar from your bin folder of library Project folder and replace/paste it into Assets\plugins\Android of your Unity project
 
 
 __AndroidManifest.xml customization:__  If you are customizing your own Unity Android application for Push Notification. So make following changes in your AndroidManifest.xml using this sample's AndroidManifest.xml file.
 
 1. Add following permission in your AndroidManifest.xml file.
+
 ```
   <uses-permission android:name="android.permission.GET_ACCOUNTS" />
     <uses-permission android:name="android.permission.INTERNET" />
@@ -195,7 +198,7 @@ __AndroidManifest.xml customization:__  If you are customizing your own Unity An
 
 ```
 
-3. Define Service in your AndroidManifest.xml file.Also define Activity name which should be open when Push Notification is opened.
+3.Define Service in your AndroidManifest.xml file.Also define Activity name which should be open when Push Notification is opened.
 
 ```
   <service android:name="com.sample.unity.app.App4GCMService" >
@@ -203,7 +206,7 @@ __AndroidManifest.xml customization:__  If you are customizing your own Unity An
        </service>
 ```
 
-5.  Add security certificate in your own cs file in which you are registering for Push Notification as added in PushSample.cs file of sample project e.g.
+__Security Certificates Check:__ Check Security certificate If not added, Add security certificate in your own cs file in which you are registering for Push Notification as added in PushSample.cs file of sample project e.g.
 
 ```
       //import statements
@@ -231,6 +234,7 @@ __AndroidManifest.xml customization:__  If you are customizing your own Unity An
 		    RegisterForPush();
 	}
 ```
+
 
 __Prior Checks:__ Before building Unity Android application please review following :
 
