@@ -81,7 +81,7 @@ public class PushSample: MonoBehaviour
           object[] unityParam = new object[]{Constants.CallBackMethod,Constants.GameObjectName,UnityRegistrationMethod};
           using (var actClass = new AndroidJavaClass("com.unity3d.player.UnityPlayer")) {
                 playerActivityContext = actClass.GetStatic<AndroidJavaObject>("currentActivity");
-		     using (var pluginClass = new AndroidJavaClass("com.shephertz.app42.android.pushservice.App42Service")) {
+		     using (var pluginClass = new AndroidJavaClass("com.shephertz.app42.android.pushservice.App42PushService")) {
                 if (pluginClass != null) {
                     testobj = pluginClass.CallStatic<AndroidJavaObject>("instance",playerActivityContext);
 				    testobj.Call("setProjectNo",googleProjectNo);
@@ -97,7 +97,7 @@ public class PushSample: MonoBehaviour
           object[] unityParam = new object[]{Constants.CallBackMethod,Constants.GameObjectName,UnityRegistrationMethod};
           using (var actClass = new AndroidJavaClass("com.unity3d.player.UnityPlayer")) {
                 playerActivityContext = actClass.GetStatic<AndroidJavaObject>("currentActivity");
-		     using (var pluginClass = new AndroidJavaClass("com.shephertz.app42.android.pushservice.App42Service")) {
+		     using (var pluginClass = new AndroidJavaClass("com.shephertz.app42.android.pushservice.App42PushService")) {
                 if (pluginClass != null) {
                     testobj = pluginClass.CallStatic<AndroidJavaObject>("instance",playerActivityContext);
 				    testobj.Call("getLastMessage");
