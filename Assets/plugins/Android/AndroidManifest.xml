@@ -57,9 +57,10 @@
           handle received messages.
 
           By default, it must be named .GCMIntentService, unless the
-          application uses a custom BroadcastReceiver that redefines its name.
+          application uses a custom BroadcastReceiver that redefines its name.
+
         -->
-       <service android:name="com.shephertz.app42.android.pushservice.App4GCMService" >
+       <service android:name="com.shephertz.app42.android.pushservice.App42GCMService" >
 	    <!-- Defined Activity when Meesage is opened-->
 		<meta-data android:name="onMessageOpen" android:value="com.shephertz.app42.unity.android.test.MainActivity" />
         </service>
