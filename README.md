@@ -201,7 +201,7 @@ __AndroidManifest.xml customization:__  If you are customizing your own Unity An
 3.Define Service in your AndroidManifest.xml file.Also define Activity name which should be open when Push Notification is opened.
 
 ```
-  <service android:name="com.sample.unity.app.App4GCMService" >
+  <service android:name="com.sample.unity.app.App42GCMService" >
 <meta-data android:name="onMessageOpen" android:value="<Your Activtiy Here >" />
        </service>
 ```
