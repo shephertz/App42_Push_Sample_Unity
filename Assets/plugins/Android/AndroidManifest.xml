@@ -1,33 +1,35 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.shephertz.app42.android.pushservice"
+    package="com.shephertz.app42.unity.android.test"
     android:versionCode="1"
     android:versionName="1.0" >
+
     <uses-sdk
         android:minSdkVersion="8"
         android:targetSdkVersion="15" />
- <permission
-        android:name="com.shephertz.app42.android.pushservice.permission.C2D_MESSAGE"
+ <!-- For customize with your app change below lines 11 and 13 "com.shephertz.app42.unity.android.test".with your app package name-->
+    <permission
+        android:name="com.shephertz.app42.unity.android.test.permission.C2D_MESSAGE"
         android:protectionLevel="signature" />
-    <uses-permission android:name="com.shephertz.app42.android.pushservice.permission.C2D_MESSAGE" />
+    <uses-permission android:name="com.shephertz.app42.unity.android.test.permission.C2D_MESSAGE" />
+	
     <!-- This app has permission to register and receive data message. -->
     <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <!-- GCM requires a Google account. -->
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
     <uses-permission android:name="android.permission.INTERNET" />
-      <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.HARDWARE_TEST" />
     <uses-permission android:name="android.permission.VIBRATE" />
+    
+
     <application
         android:icon="@drawable/app_icon"
-        android:label="@string/app_name"
-        >
-		
+        android:label="@string/app_name" >
 		<activity
             android:name="com.shephertz.app42.unity.android.test.MainActivity"
-			android:screenOrientation="portrait"
              >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -35,16 +37,18 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-           <receiver
-            android:name="com.google.android.gcm.GCMBroadcastReceiver"
+        <receiver
+            android:name="com.shephertz.app42.android.pushservice.App42PushReciver"
             android:permission="com.google.android.c2dm.permission.SEND" >
             <intent-filter>
+
                 <!-- Receives the actual messages. -->
                 <action android:name="com.google.android.c2dm.intent.RECEIVE" />
                 <!-- Receives the registration id. -->
                 <action android:name="com.google.android.c2dm.intent.REGISTRATION" />
 
-                <category android:name="com.shephertz.app42.android.pushservice" />
+				 <!-- For customize with your app change below line 51 "com.shephertz.app42.unity.android.test".with your app package name-->
+                <category android:name="com.shephertz.app42.unity.android.test" />
             </intent-filter>
         </receiver>
 
@@ -53,13 +57,12 @@
           handle received messages.
 
           By default, it must be named .GCMIntentService, unless the
-          application uses a custom BroadcastReceiver that redefines its name.
-
+          application uses a custom BroadcastReceiver that redefines its name.
         -->
-          <service android:name="com.shephertz.app42.android.pushservice.GCMIntentService" >
-            <meta-data android:name="onMessageOpen" android:value="com.shephertz.app42.unity.android.test.MainActivity" />
+       <service android:name="com.shephertz.app42.android.pushservice.App42PushService" >
+	    <!-- Defined Activity when Meesage is opened-->
+		<meta-data android:name="onMessageOpen" android:value="com.shephertz.app42.unity.android.test.MainActivity" />
         </service>
-      
     </application>
 
 </manifest>
