@@ -5,8 +5,7 @@ using com.shephertz.app42.paas.sdk.csharp;
 using com.shephertz.app42.paas.sdk.csharp.pushNotification;
 using System;
 using System.Net;
-using System.Net.Security;
-using System.Security.Cryptography.X509Certificates;
+
 
 public class PushSample: MonoBehaviour
 {
@@ -44,10 +43,7 @@ public class PushSample: MonoBehaviour
 			 Application.Quit();
 		}
 	}
-	public static bool Validator (object sender, X509Certificate certificate, X509Chain chain, SslPolicyErrors sslPolicyErrors)
-	{
-		return true;
-	}
+	
 	public void sendPushToUser(string userName,string msg){
 	
 		App42API.BuildPushNotificationService().SendPushMessageToUser(userName,msg,new Callback());
@@ -61,7 +57,7 @@ public class PushSample: MonoBehaviour
 	}
 	
 	void Start (){
-		ServicePointManager.ServerCertificateValidationCallback = Validator;
+		
 		    GameObject androidtest = GameObject.Find(Constants.GameObjectName);
 			DontDestroyOnLoad(transform.gameObject);
 			this.gameObject.name = Constants.GameObjectName;
