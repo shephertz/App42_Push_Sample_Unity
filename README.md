@@ -78,7 +78,7 @@ __Push Registration:__ To use Notification message in your game you have to regi
 ```
 public void RegisterForPush(){
 		 object[] googleProjectNo = new object[]{Constants.GoogleProjectNo};
-          object[] unityParam = new object[]{Constants.CallBackMethod,Constants.GameObjectName,UnityRegistrationMethod};
+          object[] unityParam = new object[]{Constants.CallBackMethod,this.gameObject.name ,UnityRegistrationMethod};
           using (var actClass = new AndroidJavaClass("com.unity3d.player.UnityPlayer")) {
                 playerActivityContext = actClass.GetStatic<AndroidJavaObject>("currentActivity");
 		     using (var pluginClass = new AndroidJavaClass("com.shephertz.app42.android.pushservice.App42PushService")) {
@@ -115,7 +115,7 @@ __Get Last Push Notification Message :__ You can use this method to getLast Push
 ```
 	public void getLastMessage(){
 		 object[] googleProjectNo = new object[]{Constants.GoogleProjectNo};
-          object[] unityParam = new object[]{Constants.CallBackMethod,Constants.GameObjectName,UnityRegistrationMethod};
+          object[] unityParam = new object[]{Constants.CallBackMethod,this.gameObject.name ,UnityRegistrationMethod};
           using (var actClass = new AndroidJavaClass("com.unity3d.player.UnityPlayer")) {
                 playerActivityContext = actClass.GetStatic<AndroidJavaObject>("currentActivity");
 		     using (var pluginClass = new AndroidJavaClass("com.shephertz.app42.android.pushservice.App42PushService")) {
