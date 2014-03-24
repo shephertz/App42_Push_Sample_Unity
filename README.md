@@ -73,8 +73,7 @@ __Modifying Main Activity:__ This sample uses its own Main Activity however if y
 
 # Design Details:
 
-__Push Registration:__ To use Notification message in your game you have to register your game for PushNotification
-by calling this method in your main cs file. 
+__Push Registration:__ To use Notification message in your game you have to register your game for PushNotification by calling this method defined in PushSamle.cs file of sample project. 
 
 ```
 public void RegisterForPush(){
