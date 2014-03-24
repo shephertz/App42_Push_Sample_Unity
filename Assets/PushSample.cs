@@ -58,8 +58,6 @@ public class PushSample: MonoBehaviour
 	
 	void Start (){
 			DontDestroyOnLoad(transform.gameObject);
-            //Name of Game Object that is used for Push Registration callbacks
-			this.gameObject.name = Constants.GameObjectName;
 		    App42API.Initialize(Constants.ApiKey,Constants.SecretKey);
 	    	App42API.SetLoggedInUser(Constants.UserId);
 		    //If your App is ACL App, uncomment and pass session id of logged in user in below line
@@ -88,7 +86,7 @@ public class PushSample: MonoBehaviour
 	
 	public void getLastMessage(){
 		 object[] googleProjectNo = new object[]{Constants.GoogleProjectNo};
-          object[] unityParam = new object[]{Constants.CallBackMethod,Constants.GameObjectName,UnityRegistrationMethod};
+		object[] unityParam = new object[]{Constants.CallBackMethod,this.gameObject.name,UnityRegistrationMethod};
           using (var actClass = new AndroidJavaClass("com.unity3d.player.UnityPlayer")) {
                 playerActivityContext = actClass.GetStatic<AndroidJavaObject>("currentActivity");
 		     using (var pluginClass = new AndroidJavaClass("com.shephertz.app42.android.pushservice.App42PushService")) {
