@@ -57,9 +57,8 @@ public class PushSample: MonoBehaviour
 	}
 	
 	void Start (){
-		
-		    GameObject androidtest = GameObject.Find(Constants.GameObjectName);
 			DontDestroyOnLoad(transform.gameObject);
+            //Name of Game Object that is used for Push Registration callbacks
 			this.gameObject.name = Constants.GameObjectName;
 		    App42API.Initialize(Constants.ApiKey,Constants.SecretKey);
 	    	App42API.SetLoggedInUser(Constants.UserId);
@@ -67,14 +66,13 @@ public class PushSample: MonoBehaviour
 		    //App42API.SetUserSessionId("<Logged_In_User_Session_Id>");
 		    RegisterForPush();
 		    getLastMessage();
-		  
 	}
 	
 	
 	
 	public void RegisterForPush(){
 		 object[] googleProjectNo = new object[]{Constants.GoogleProjectNo};
-          object[] unityParam = new object[]{Constants.CallBackMethod,Constants.GameObjectName,UnityRegistrationMethod};
+		object[] unityParam = new object[]{Constants.CallBackMethod,this.gameObject.name ,UnityRegistrationMethod};
           using (var actClass = new AndroidJavaClass("com.unity3d.player.UnityPlayer")) {
                 playerActivityContext = actClass.GetStatic<AndroidJavaObject>("currentActivity");
 		     using (var pluginClass = new AndroidJavaClass("com.shephertz.app42.android.pushservice.App42PushService")) {
