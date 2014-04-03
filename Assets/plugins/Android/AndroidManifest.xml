@@ -30,6 +30,7 @@
         android:label="@string/app_name" >
 		<activity
             android:name="com.shephertz.app42.unity.android.test.MainActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
              >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
