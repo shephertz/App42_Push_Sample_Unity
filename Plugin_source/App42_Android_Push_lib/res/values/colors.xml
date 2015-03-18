@@ -1,0 +1,7 @@
+<resources>
+  
+	<color name="listViewBg">#DADFEE</color>
+    <color name="background">#233233</color>
+      <color name="textColor">#ffffff</color>
+       <color name="headerbackground">#456789</color>
+</resources>
