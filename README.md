@@ -146,7 +146,6 @@ __4 Send PushNotification to all users using Unity App42 SDK :__ You can use thi
         }
 
 ```
-For more info go through with "http://api.shephertz.com/app42-docs/push-notification-service/?sdk=unity"
 
 ```
 # Integration and Customization in Your Existing Project.
@@ -177,3 +176,5 @@ Notification notification = new NotificationCompat.Builder(context)
 --> Build your library project.
 
 --> Copy app42pushservice.jar from your bin folder of library Project folder and replace/paste it into Assets\plugins\Android of your Unity project
+
+For more info go through with "http://api.shephertz.com/app42-docs/push-notification-service/?sdk=unity"
