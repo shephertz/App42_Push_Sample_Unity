@@ -94,7 +94,7 @@ public class App42GCMService extends IntentService {
 				try {
 					App42UnityHelper.sendPushMessage(message);
 				} catch (Throwable e) {
-					Log.e("App42 Exception", e.getMessage());
+					Log.i(TAG, "Application is currently closed");
 				}
 				Log.i(TAG, "Received: " + extras.toString());
 			}
