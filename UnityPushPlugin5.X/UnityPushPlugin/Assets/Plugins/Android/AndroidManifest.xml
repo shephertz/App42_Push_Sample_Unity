@@ -1,0 +1,69 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.test.push"
+    android:versionCode="1"
+    android:versionName="1.0" >
+
+    <uses-sdk
+        android:minSdkVersion="8"
+        android:targetSdkVersion="15" />
+ <!-- For customize with your app change below lines 11 and 13 "com.test.push".with your app package name-->
+    <permission
+        android:name="com.test.push.permission.C2D_MESSAGE"
+        android:protectionLevel="signature" />
+    <uses-permission android:name="com.test.push.permission.C2D_MESSAGE" />
+	
+    <!-- This app has permission to register and receive data message. -->
+    <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <!-- GCM requires a Google account. -->
+    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.VIBRATE" />
+    
+
+    <application
+        android:icon="@drawable/app_icon"
+        android:label="@string/app_name" >
+		 <activity android:name="com.unity3d.player.UnityPlayerActivity" android:launchMode="singleTask" android:label="@string/app_name" android:configChanges="fontScale|keyboard|keyboardHidden|locale|mnc|mcc|navigation|orientation|screenLayout|screenSize|smallestScreenSize|uiMode|touchscreen" android:screenOrientation="portrait">
+      <intent-filter>
+        <action android:name="android.intent.action.MAIN" />
+        <category android:name="android.intent.category.LAUNCHER" />
+      </intent-filter>
+    </activity>
+       
+        <receiver
+            android:name="com.shephertz.app42.push.plugin.App42GCMReceiver"
+            android:permission="com.google.android.c2dm.permission.SEND" >
+            <intent-filter>
+
+                <!-- Receives the actual messages. -->
+                <action android:name="com.google.android.c2dm.intent.RECEIVE" />
+                <!-- Receives the registration id. -->
+                <action android:name="com.google.android.c2dm.intent.REGISTRATION" />
+
+				 <!-- For customize with your app change below line 51 "com.test.push".with your app package name-->
+                <category android:name="com.test.push" />
+            </intent-filter>
+        </receiver>
+
+        <!--
+          Application-specific subclass of GCMBaseIntentService that will
+          handle received messages.
+
+          By default, it must be named .GCMIntentService, unless the
+          application uses a custom BroadcastReceiver that redefines its name.
+
+        -->
+       <service android:name="com.shephertz.app42.push.plugin.App42GCMService" >
+	    <!-- Defined Activity when Meesage is opened-->
+        </service>
+		  <meta-data android:name="push_title" android:value="App42PushUnity"/>
+		   <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="6587000" />
+			<meta-data
+            android:name="onMessageOpen"
+            android:value="com.unity3d.player.UnityPlayerActivity" />
+    </application>
+
+</manifest>
