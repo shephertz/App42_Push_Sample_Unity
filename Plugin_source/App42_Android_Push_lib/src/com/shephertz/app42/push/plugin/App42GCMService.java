@@ -90,6 +90,8 @@ public class App42GCMService extends IntentService {
 				// Post notification of received message.
 				Bundle bundle = intent.getExtras();
 				String message = (String) bundle.get("message");
+				if(message==null)
+					return;
 				sendNotification(message);
 				try {
 					App42UnityHelper.sendPushMessage(message);
@@ -112,6 +114,7 @@ public class App42GCMService extends IntentService {
 	private void sendNotification(String message) {
 		
 		long when = System.currentTimeMillis();;
+		int iconId=getResources().getIdentifier("app_icon", "drawable", getPackageName());
 		Intent notificationIntent;
 		try {
 			notificationIntent = new Intent(this,
@@ -131,7 +134,7 @@ public class App42GCMService extends IntentService {
 		Notification notification = new NotificationCompat.Builder(this)
 				.setContentTitle(getTitle()).setContentText(message)
 				.setContentIntent(intent)
-				.setSmallIcon(android.R.drawable.ic_dialog_info).setWhen(when)
+				.setSmallIcon(iconId).setWhen(when)
 				.setNumber(++msgCount)
 				//.setLargeIcon(getBitmapFromAssets())
 				.setLights(Color.YELLOW, 1, 2).setAutoCancel(true).build();
