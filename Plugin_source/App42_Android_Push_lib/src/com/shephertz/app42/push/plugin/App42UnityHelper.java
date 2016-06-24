@@ -5,6 +5,7 @@
  */
 package com.shephertz.app42.push.plugin;
 
+import android.content.Context;
 import android.content.SharedPreferences;
 import android.util.Log;
 
@@ -22,6 +23,8 @@ public class App42UnityHelper {
 	private final static String OnRegistrationId = "onDidRegisterForRemoteNotificationsFromNative";
 	private final static String OnGCMRegistrationError = "onDidFailToRegisterForRemoteNotificationFromNative";
 	private final static String OnGCMError = "onErrorFromNative";
+	
+	private final static int PrivateMode=0;
     
 	/*
 	 * This function allows to register device for PushNotification service
@@ -60,8 +63,8 @@ public class App42UnityHelper {
 	/** Sends Push Message to Unity
 	 * @param message
 	 */
-	public static void sendPushMessage(String message) {
-		saveLastMessage(message);
+	public static void sendPushMessage(String message,Context context) {
+		//saveLastMessage(message,context);
 		UnityPlayer.UnitySendMessage(getGameObjectName(), OnMessage, message);
 		Log.i("App42 Message Sent : OnMessage", message);
 	}
@@ -97,17 +100,18 @@ public class App42UnityHelper {
 		resetCount();
 		SharedPreferences sharedPreference = UnityPlayer.currentActivity
 				.getSharedPreferences(AppName,
-						UnityPlayer.currentActivity.MODE_PRIVATE);
+						PrivateMode);
 		return sharedPreference.getString(KeyLastMessage, "");
 	}
 
 	/** This function save last Push Notification message in prferences
 	 * @param projectNo
 	 */
-	private static void saveLastMessage(String message) {
-		SharedPreferences sharedPreference = UnityPlayer.currentActivity
+	public static void saveLastMessage(String message,Context context) {
+		SharedPreferences sharedPreference = context
 				.getSharedPreferences(AppName,
-						UnityPlayer.currentActivity.MODE_PRIVATE);
+						PrivateMode);
+		
 		SharedPreferences.Editor prefEditor = sharedPreference.edit();
 		prefEditor.putString(KeyLastMessage, message);
 		prefEditor.commit();
@@ -120,7 +124,7 @@ public class App42UnityHelper {
 	private static void setListener(String gameObjectName){
 		SharedPreferences sharedPreference = UnityPlayer.currentActivity
 				.getSharedPreferences(AppName,
-						UnityPlayer.currentActivity.MODE_PRIVATE);
+						PrivateMode);
 		SharedPreferences.Editor prefEditor = sharedPreference.edit();
 		prefEditor.putString(KeyGameObject, gameObjectName);
 		prefEditor.commit();
@@ -132,7 +136,7 @@ public class App42UnityHelper {
 	private static String getGameObjectName(){
 		SharedPreferences sharedPreference = UnityPlayer.currentActivity
 				.getSharedPreferences(AppName,
-						UnityPlayer.currentActivity.MODE_PRIVATE);
+						PrivateMode);
 		return sharedPreference.getString(KeyGameObject, "");
 	}
 	/*

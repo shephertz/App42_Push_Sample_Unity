@@ -7,7 +7,13 @@ package com.shephertz.app42.push.plugin;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.List;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import android.app.ActivityManager;
+import android.app.ActivityManager.RunningTaskInfo;
 import android.app.IntentService;
 import android.app.Notification;
 import android.app.NotificationManager;
@@ -77,42 +83,87 @@ public class App42GCMService extends IntentService {
 			} else if (GoogleCloudMessaging.MESSAGE_TYPE_MESSAGE
 					.equals(messageType)) {
 				// This loop represents the service doing some work.
-				for (int i = 0; i < 5; i++) {
-					Log.i(TAG,
-							"Working... " + (i + 1) + "/5 @ "
-									+ SystemClock.elapsedRealtime());
-					try {
-						Thread.sleep(100);
-					} catch (InterruptedException e) {
-					}
-				}
+				
 				Log.i(TAG, "Completed work @ " + SystemClock.elapsedRealtime());
 				// Post notification of received message.
 				Bundle bundle = intent.getExtras();
 				String message = (String) bundle.get("message");
 				if(message==null)
 					return;
-				sendNotification(message);
+				boolean isShow=false;
 				try {
-					App42UnityHelper.sendPushMessage(message);
+					
+					App42UnityHelper.saveLastMessage(message, this);
+					App42UnityHelper.sendPushMessage(message,this);
+					//if(!isRunning()){
+						Log.i(TAG, "Application is Not running closed");
+					sendNotification(message);
+					isShow=true;
+//					}
+//					else{
+//						Log.i(TAG, "Application is  running closed");
+//					}
 				} catch (Throwable e) {
-					Log.i(TAG, "Application is currently closed");
+				
+					Log.i(TAG, "Application is currently closed"+e.getMessage());
+					if(!isShow)
+						try {
+							sendNotification(message);
+						} catch (JSONException e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+						}
+					
 				}
 				Log.i(TAG, "Received: " + extras.toString());
 			}
 		}
 		// Release the wake lock provided by the WakefulBroadcastReceiver.
+		try{
 		App42GCMReceiver.completeWakefulIntent(intent);
+		}catch (Throwable e) 
+		{}
 	}
+	public boolean isRunning() {
 
+	    ActivityManager activityManager = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
+	    List<RunningTaskInfo> services = activityManager
+	            .getRunningTasks(Integer.MAX_VALUE);
+	    boolean isActivityFound = false;
+
+	    if (services.get(0).topActivity.getPackageName().toString()
+	            .equalsIgnoreCase(getPackageName().toString())) {
+	        isActivityFound = true;
+	    }
+	 return isActivityFound;
+	}
+	private JSONObject getMessageJson(String message){
+		JSONObject json=null;
+		try {
+			 json=new JSONObject(message);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			try {
+				json=new JSONObject();
+				json.put("message", message);
+			} catch (JSONException e1) {
+				// TODO Auto-generated catch block
+			
+			}
+		}
+		return json;
+	}
 	// Put the message into a notification and post it.
 	// This is just one simple example of what you might choose to do with
 	// a GCM message.
 	/**
 	 * @param msg
+	 * @throws JSONException 
 	 */
-	private void sendNotification(String message) {
-		
+	private void sendNotification(String message) throws JSONException {
+		JSONObject messageJsonObject=getMessageJson(message);
+		if(messageJsonObject==null)
+			return;
 		long when = System.currentTimeMillis();;
 		int iconId=getResources().getIdentifier("app_icon", "drawable", getPackageName());
 		Intent notificationIntent;
@@ -132,7 +183,7 @@ public class App42GCMService extends IntentService {
 		PendingIntent intent = PendingIntent.getActivity(this, 0,
 				notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 		Notification notification = new NotificationCompat.Builder(this)
-				.setContentTitle(getTitle()).setContentText(message)
+				.setContentTitle(getTitle()).setContentText(messageJsonObject.getString("message"))
 				.setContentIntent(intent)
 				.setSmallIcon(iconId).setWhen(when)
 				.setNumber(++msgCount)
