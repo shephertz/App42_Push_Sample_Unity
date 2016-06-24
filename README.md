@@ -173,9 +173,9 @@ Notification notification = new NotificationCompat.Builder(context)
 		notification.defaults |= Notification.DEFAULT_VIBRATE;
 		notificationManager.notify(0, notification);
 ```
+Build your library project.
 
---> Build your library project.
-
+__ Do Configurations __ 
 --> Copy app42pushservice.jar from your bin folder of library Project folder and replace/paste it into Assets\plugins\Android of your Unity project.
 
 __Don't Show Push If Application is Opened __ If you don't want to show notificaation when application do following configurations.
