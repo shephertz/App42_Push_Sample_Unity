@@ -68,6 +68,7 @@ __1. Android Configurations:__ You can also configure AndroidManifest accordingl
 				<uses-permission android:name="android.permission.WAKE_LOCK" />
 				<uses-permission android:name="android.permission.INTERNET" />
 				<uses-permission android:name="android.permission.VIBRATE" />
+				 <uses-permission android:name="android.permission.GET_ACCOUNTS" />
 ```
       1.3.2 Add App42GCMService :
 	  ```
@@ -175,6 +176,19 @@ Notification notification = new NotificationCompat.Builder(context)
 
 --> Build your library project.
 
---> Copy app42pushservice.jar from your bin folder of library Project folder and replace/paste it into Assets\plugins\Android of your Unity project
+--> Copy app42pushservice.jar from your bin folder of library Project folder and replace/paste it into Assets\plugins\Android of your Unity project.
 
+__Don't Show Push If Application is Opened __ If you don't want to show notificaation when application do following configurations.
+
+1. Copy app42pushserviceV2.jar file from App42_Plugin_Jar folder and replcae it with app42pushservice.jar file into  Assets\plugins\Android folder of your unity project.
+2. Add Permission 
+  <uses-permission android:name="android.permission.GET_TASKS" />
+  
+__Supported Messages  __
+1. You can send Text message.
+2. You can send Json message as well like
+
+{"message":"Notification message","key1":""value","key2":"value"
+}
+3. You can configure Push title by changing the "push_title" value in AndroidManifest.xml file.
 For more info go through with "http://api.shephertz.com/app42-docs/push-notification-service/?sdk=unity"
